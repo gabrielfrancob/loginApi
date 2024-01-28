@@ -1,8 +1,10 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import User from "../models/User";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-async function registerUser(req, res) {
+
+// tipar
+async function registerUser(req: any, res: any) {
   const { email, matricula, senha } = req.body;
   if (!email || !matricula || !senha) {
     return res
@@ -44,8 +46,8 @@ async function registerUser(req, res) {
     });
   }
 }
-
-async function loginUser(req, res) {
+// tipar
+async function loginUser(req: any, res: any) {
   const { email, senha } = req.body;
   if (!email) {
     return res.status(422).json({ msg: "O email é obrigatório!" });
@@ -70,7 +72,7 @@ async function loginUser(req, res) {
       .json({ msg: "Senha incorreta.", status: res.statusCode });
 
   try {
-    const secret = process.env.SECRET;
+    const secret: any = process.env.SECRET;
 
     const token = jwt.sign({ id: usuario._id }, secret, { expiresIn: 3600 });
 
@@ -87,4 +89,6 @@ async function loginUser(req, res) {
   }
 }
 
-module.exports = { registerUser, loginUser };
+// module.exports = { registerUser, loginUser };
+const AuthController = { registerUser, loginUser };
+export default AuthController;

@@ -1,6 +1,7 @@
-const User = require("../models/User");
+import User from "../models/User";
 
-const getUserById = async (req, res) => {
+// tipar
+const getUserById = async (req: any, res: any) => {
   const { id } = req.params;
   // o segundo parâmetro serve para excluir o campo senha do retorno
   const usuario = await User.findById(id, "-senha");
@@ -13,4 +14,5 @@ const getUserById = async (req, res) => {
   res.status(200).json({ usuario, status: res.statusCode });
 };
 
-module.exports = getUserById;
+const UserController = { getUserById };
+export default UserController;

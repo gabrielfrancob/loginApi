@@ -1,6 +1,7 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-function checkToken(req, res, next) {
+// tipar
+function checkToken(req: any, res: any, next: any) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -10,7 +11,8 @@ function checkToken(req, res, next) {
       .json({ msg: "Acesso negado.", status: res.statusCode });
 
   try {
-    const secret = process.env.SECRET;
+    // tipar
+    const secret: any = process.env.SECRET;
 
     jwt.verify(token, secret);
 
@@ -23,4 +25,5 @@ function checkToken(req, res, next) {
   }
 }
 
-module.exports = checkToken;
+const AuthMiddleware = { checkToken };
+export default AuthMiddleware;
